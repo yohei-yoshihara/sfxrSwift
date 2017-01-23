@@ -17,7 +17,7 @@
 		4789BE861E361BB6008CD413 /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4789BE811E361BB6008CD413 /* SidebarViewController.swift */; };
 		4789BE871E361BB6008CD413 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4789BE821E361BB6008CD413 /* WindowController.swift */; };
 		4789BE891E361D31008CD413 /* BinaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4789BE881E361D31008CD413 /* BinaryData.swift */; };
-		4789BE8B1E361FB3008CD413 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 4789BE8A1E361FB3008CD413 /* README.md */; };
+		4789BE8D1E362034008CD413 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 4789BE8C1E362034008CD413 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,7 @@
 		4789BE811E361BB6008CD413 /* SidebarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
 		4789BE821E361BB6008CD413 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		4789BE881E361D31008CD413 /* BinaryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryData.swift; sourceTree = "<group>"; };
-		4789BE8A1E361FB3008CD413 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		4789BE8C1E362034008CD413 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +50,7 @@
 		4789BE631E361B5E008CD413 = {
 			isa = PBXGroup;
 			children = (
+				4789BE8C1E362034008CD413 /* README.md */,
 				4789BE6E1E361B5E008CD413 /* sfxrSwift */,
 				4789BE6D1E361B5E008CD413 /* Products */,
 			);
@@ -66,7 +67,6 @@
 		4789BE6E1E361B5E008CD413 /* sfxrSwift */ = {
 			isa = PBXGroup;
 			children = (
-				4789BE8A1E361FB3008CD413 /* README.md */,
 				4789BE6F1E361B5E008CD413 /* AppDelegate.swift */,
 				4789BE821E361BB6008CD413 /* WindowController.swift */,
 				4789BE711E361B5E008CD413 /* ViewController.swift */,
@@ -159,7 +159,7 @@
 				4789BE721E361B5E008CD413 /* ViewController.swift in Sources */,
 				4789BE871E361BB6008CD413 /* WindowController.swift in Sources */,
 				4789BE831E361BB6008CD413 /* ParameterViewController.swift in Sources */,
-				4789BE8B1E361FB3008CD413 /* README.md in Sources */,
+				4789BE8D1E362034008CD413 /* README.md in Sources */,
 				4789BE701E361B5E008CD413 /* AppDelegate.swift in Sources */,
 				4789BE841E361BB6008CD413 /* PreferenceViewController.swift in Sources */,
 			);
