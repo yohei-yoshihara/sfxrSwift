@@ -26,20 +26,28 @@
 
 import Cocoa
 
-@NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+let UseDarkModeKey = "UseDarkMode"
 
-  func applicationDidFinishLaunching(_ aNotification: Notification) {
-    UserDefaults.standard.register(defaults: [ UseDarkModeKey : false ])
+class PreferenceViewController: NSViewController {
+  @IBOutlet weak var themeCheckBox: NSButton!
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
   }
-
-  func applicationWillTerminate(_ aNotification: Notification) {
-    // Insert code here to tear down your application
+  
+  override func viewWillAppear() {
+    super.viewWillAppear()
+    
+    if UserDefaults.standard.bool(forKey: UseDarkModeKey) {
+      self.themeCheckBox.state = NSOnState
+    }
+    else {
+      self.themeCheckBox.state = NSOffState
+    }
   }
-
-  func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-    return true
+  
+  @IBAction func changeTheme(_ sender: Any) {
+    let useDarkTheme = NSNumber(booleanLiteral: self.themeCheckBox.state == NSOnState)
+    NotificationCenter.default.post(name: ThemeChangedNotification, object: self, userInfo: [UseDarkModeKey: useDarkTheme])
   }
-
 }
-
