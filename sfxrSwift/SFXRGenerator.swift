@@ -926,7 +926,12 @@ class SFXRGenerator {
     
     let ioUnit = try! AUAudioUnit(componentDescription: ioUnitDesc,
                                   options: AudioComponentInstantiationOptions())
-    let renderFormat = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: 44100.0, channels: 1, interleaved: false)
+    guard let renderFormat = AVAudioFormat(commonFormat: .pcmFormatInt16, 
+                                           sampleRate: 44100.0,
+                                           channels: 1,
+                                           interleaved: false) else {
+      fatalError()
+    }
     try! ioUnit.inputBusses[0].setFormat(renderFormat)
     
     ioUnit.outputProvider = { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,

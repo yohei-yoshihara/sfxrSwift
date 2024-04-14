@@ -105,12 +105,12 @@ class SidebarViewController: NSViewController, NSOutlineViewDelegate, NSOutlineV
   
   func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
     if let header = item as? Header {
-      let cell = outlineView.make(withIdentifier: "HeaderCell", owner: nil) as! NSTableCellView
+      let cell = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("HeaderCell"), owner: nil) as! NSTableCellView
       cell.textField?.stringValue = header.label
       return cell
     }
     if let item = item as? Item {
-      let cell = outlineView.make(withIdentifier: "DataCell", owner: nil) as! NSTableCellView
+      let cell = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("DataCell"), owner: nil) as! NSTableCellView
       cell.textField?.stringValue = item.label
       return cell
     }

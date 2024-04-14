@@ -246,7 +246,7 @@ class ParameterViewController: NSViewController {
     params.hpfRamp = self.highpassFilterCutoffSweepSlider.floatValue
   }
   
-  func didSliderUpdate(_ sender: Any) {
+  @objc func didSliderUpdate(_ sender: Any) {
     NotificationCenter.default.post(name: ParameterChangedNotification, object: self)
   }
   

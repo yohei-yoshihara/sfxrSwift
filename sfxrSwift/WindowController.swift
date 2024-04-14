@@ -37,7 +37,7 @@ class WindowController: NSWindowController {
     self.window!.titleVisibility = .hidden
     
     if UserDefaults.standard.bool(forKey: UseDarkModeKey) {
-      self.window?.appearance = NSAppearance(named: NSAppearanceNameVibrantDark)
+      self.window?.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
     }
     else {
       self.window?.appearance = nil
@@ -46,10 +46,10 @@ class WindowController: NSWindowController {
     NotificationCenter.default.addObserver(self, selector: #selector(WindowController.themeChanged(notification:)), name: ThemeChangedNotification, object: nil)
   }
   
-  func themeChanged(notification: Notification) {
+  @objc func themeChanged(notification: Notification) {
     if let useDarkTheme = notification.userInfo?[UseDarkModeKey] as? NSNumber {
       if useDarkTheme.boolValue {
-        self.window?.appearance = NSAppearance(named: NSAppearanceNameVibrantDark)
+        self.window?.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
         UserDefaults.standard.set(useDarkTheme.boolValue, forKey: UseDarkModeKey)
       }
       else {

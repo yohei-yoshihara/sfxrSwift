@@ -39,15 +39,15 @@ class PreferenceViewController: NSViewController {
     super.viewWillAppear()
     
     if UserDefaults.standard.bool(forKey: UseDarkModeKey) {
-      self.themeCheckBox.state = NSOnState
+      self.themeCheckBox.state = .on
     }
     else {
-      self.themeCheckBox.state = NSOffState
+      self.themeCheckBox.state = .off
     }
   }
   
   @IBAction func changeTheme(_ sender: Any) {
-    let useDarkTheme = NSNumber(booleanLiteral: self.themeCheckBox.state == NSOnState)
+    let useDarkTheme = NSNumber(booleanLiteral: self.themeCheckBox.state == .on)
     NotificationCenter.default.post(name: ThemeChangedNotification, object: self, userInfo: [UseDarkModeKey: useDarkTheme])
   }
 }

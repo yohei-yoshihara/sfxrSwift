@@ -55,7 +55,7 @@ class ViewController: NSSplitViewController {
                                            name: ParameterChangedNotification,
                                            object: nil)
     sfxrGenerator.prepare()
-    for vc in self.childViewControllers {
+    for vc in self.children {
       if let paramVC = vc as? ParameterViewController {
         paramVC.updateUI(parameters: sfxrGenerator.parameters)
         self.parameterViewController = paramVC
@@ -72,7 +72,7 @@ class ViewController: NSSplitViewController {
     NotificationCenter.default.removeObserver(self)
   }
   
-  func generatorSelected(notification: Notification) {
+  @objc func generatorSelected(notification: Notification) {
     guard let generator = notification.userInfo?["generator"] as? GeneratorType else {
       return
     }
@@ -80,13 +80,13 @@ class ViewController: NSSplitViewController {
     updateUI()
   }
   
-  func mutate(notification: Notification) {
+  @objc func mutate(notification: Notification) {
     self.sfxrGenerator.mutate()
     self.sfxrGenerator.playSample()
     updateUI()
   }
   
-  func randomize(notification: Notification) {
+  @objc func randomize(notification: Notification) {
     self.sfxrGenerator.random()
     self.sfxrGenerator.playSample()
     updateUI()
@@ -99,7 +99,7 @@ class ViewController: NSSplitViewController {
     }
   }
   
-  func parameterChanged(notification: Notification) {
+  @objc func parameterChanged(notification: Notification) {
     self.parameterViewController.updateParameters(parameters: &self.sfxrGenerator.parameters)
     self.sfxrGenerator.playSample()
   }
@@ -116,7 +116,7 @@ class ViewController: NSSplitViewController {
     panel.allowedFileTypes = ["sfxr"]
     panel.canSelectHiddenExtension = true
     panel.beginSheetModal(for: window) { (result) in
-      if result == NSFileHandlingPanelOKButton {
+      if result == .OK {
         if let url = panel.urls.first {
           self.sfxrGenerator.loadSettings(url: url)
           self.parameterViewController.updateUI(parameters: self.sfxrGenerator.parameters)
@@ -134,7 +134,7 @@ class ViewController: NSSplitViewController {
     panel.allowedFileTypes = ["sfxr"]
     panel.canSelectHiddenExtension = true
     panel.beginSheetModal(for: window) { (result) in
-      if result == NSFileHandlingPanelOKButton {
+      if result == .OK{
         if let url = panel.url {
           self.sfxrGenerator.saveSettings(url: url)
         }
@@ -151,7 +151,7 @@ class ViewController: NSSplitViewController {
     panel.allowedFileTypes = ["wav"]
     panel.canSelectHiddenExtension = true
     panel.beginSheetModal(for: window) { (result) in
-      if result == NSFileHandlingPanelOKButton {
+      if result.rawValue == NSFileHandlingPanelOKButton {
         if let url = panel.url {
           let data = self.sfxrGenerator.exportWAV()
           try! data.write(to: url)

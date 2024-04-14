@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -321,7 +320,7 @@
                                         <menuItem title="Show Sidebar" keyEquivalent="s" id="kIP-vf-haE">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                             <connections>
-                                                <action selector="toggleSourceList:" target="Ady-hI-5gd" id="iwa-gc-5KM"/>
+                                                <action selector="toggleSidebar:" target="Ady-hI-5gd" id="iwa-gc-5KM"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Enter Full Screen" keyEquivalent="f" id="4J7-dP-txa">
@@ -376,7 +375,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="sfxr_for_macos" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="sfxrSwift" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="-86"/>
@@ -385,11 +384,14 @@
         <scene sceneID="ovn-cL-foS">
             <objects>
                 <windowController id="hsY-Gp-aj3" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="kCY-c9-Jkc">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="kCY-c9-Jkc">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="294" y="362" width="320" height="120"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
+                        <connections>
+                            <outlet property="delegate" destination="hsY-Gp-aj3" id="IM2-rW-Af7"/>
+                        </connections>
                     </window>
                     <connections>
                         <segue destination="FhN-gL-ivh" kind="relationship" relationship="window.shadowedContentViewController" id="CiV-zz-ghU"/>
@@ -402,7 +404,7 @@
         <!--Preference View Controller-->
         <scene sceneID="Hsv-f1-yF0">
             <objects>
-                <viewController id="FhN-gL-ivh" customClass="PreferenceViewController" customModule="sfxr_for_macos" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="FhN-gL-ivh" customClass="PreferenceViewController" customModule="sfxrSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="57g-Lx-qXR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -431,11 +433,11 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" customClass="WindowController" customModule="sfxr_for_macos" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                <windowController id="B8D-0N-5wS" customClass="WindowController" customModule="sfxrSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="contentRect" x="196" y="240" width="680" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <toolbar key="toolbar" implicitIdentifier="C829CCFB-4C3D-4B54-A1B2-14874053969E" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="Sxh-d6-8KL">
                             <allowedToolbarItems>
@@ -462,14 +464,14 @@
                                         </segmentedCell>
                                     </segmentedControl>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="550A59C5-36C8-434F-AAE4-D061EADE0982" label="Custom View" paletteLabel="Custom View" image="play" id="Fhf-tE-JEQ">
+                                <toolbarItem implicitItemIdentifier="550A59C5-36C8-434F-AAE4-D061EADE0982" label="Custom View" paletteLabel="Custom View" image="NSTouchBarPlayTemplate" id="Fhf-tE-JEQ">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="40" height="25"/>
                                     <size key="maxSize" width="40" height="25"/>
                                     <button key="view" verticalHuggingPriority="750" id="gTS-4h-2wa">
                                         <rect key="frame" x="18" y="14" width="40" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="play" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="v9I-jA-cvx">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarPlayTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="v9I-jA-cvx">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -478,7 +480,7 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="6BA38FB0-A6DF-4BA8-8F2B-8A11927D0AD8" label="Custom View" paletteLabel="Custom View" id="aXo-Hw-Vlt">
+                                <toolbarItem implicitItemIdentifier="6BA38FB0-A6DF-4BA8-8F2B-8A11927D0AD8" label="Custom View" paletteLabel="Custom View" title="44100 Hz" id="aXo-Hw-Vlt">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="100" height="28"/>
                                     <size key="maxSize" width="100" height="28"/>
@@ -497,7 +499,7 @@
                                         </popUpButtonCell>
                                     </popUpButton>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="C78E69EB-8D93-4E31-8401-260A6A8605B0" label="Custom View" paletteLabel="Custom View" id="VY8-VZ-T40">
+                                <toolbarItem implicitItemIdentifier="C78E69EB-8D93-4E31-8401-260A6A8605B0" label="Custom View" paletteLabel="Custom View" title="16-bit" id="VY8-VZ-T40">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="100" height="28"/>
                                     <size key="maxSize" width="100" height="28"/>
@@ -524,6 +526,9 @@
                                 <toolbarItem reference="Qwa-Fh-bC4"/>
                             </defaultToolbarItems>
                         </toolbar>
+                        <connections>
+                            <outlet property="delegate" destination="B8D-0N-5wS" id="6iN-pJ-oDE"/>
+                        </connections>
                     </window>
                     <connections>
                         <outlet property="waveTypeSegmentedControl" destination="uxx-Vy-pOT" id="JRa-r5-szY"/>
@@ -532,12 +537,12 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="-7" y="259"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="joP-XW-pmh">
             <objects>
-                <splitViewController id="rkj-8C-ZVf" customClass="ViewController" customModule="sfxr_for_macos" customModuleProvider="target" sceneMemberID="viewController">
+                <splitViewController id="rkj-8C-ZVf" customClass="ViewController" customModule="sfxrSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
                         <splitViewItem id="fhc-tm-lac"/>
                         <splitViewItem holdingPriority="249" id="LJp-HV-yut"/>
@@ -545,8 +550,12 @@
                     <splitView key="splitView" dividerStyle="thin" vertical="YES" id="IMG-R6-Kgc">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="delegate" destination="rkj-8C-ZVf" id="qaK-E1-LAB"/>
+                        </connections>
                     </splitView>
                     <connections>
+                        <outlet property="splitView" destination="IMG-R6-Kgc" id="i0L-6l-SLz"/>
                         <segue destination="WKZ-i2-GiA" kind="relationship" relationship="splitItems" id="8dT-Hm-aiu"/>
                         <segue destination="t41-8Q-ULy" kind="relationship" relationship="splitItems" id="r9p-ql-3x2"/>
                     </connections>
@@ -558,7 +567,7 @@
         <!--Sidebar View Controller-->
         <scene sceneID="5S4-Sb-9o0">
             <objects>
-                <viewController id="WKZ-i2-GiA" customClass="SidebarViewController" customModule="sfxr_for_macos" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="WKZ-i2-GiA" customClass="SidebarViewController" customModule="sfxrSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="wNw-aa-AJv">
                         <rect key="frame" x="0.0" y="0.0" width="285" height="497"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -571,14 +580,13 @@
                                     <subviews>
                                         <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="mj1-el-qnG" id="T8j-LZ-rB6">
                                             <rect key="frame" x="0.0" y="0.0" width="283" height="495"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="280" minWidth="16" maxWidth="1000" id="mj1-el-qnG">
+                                                <tableColumn width="251" minWidth="16" maxWidth="1000" id="mj1-el-qnG">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -590,11 +598,11 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="HeaderCell" id="MzQ-4D-75N">
-                                                            <rect key="frame" x="1" y="1" width="280" height="17"/>
+                                                            <rect key="frame" x="11" y="1" width="260" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K1Z-IL-sN2">
-                                                                    <rect key="frame" x="0.0" y="1" width="280" height="14"/>
+                                                                <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K1Z-IL-sN2">
+                                                                    <rect key="frame" x="0.0" y="1" width="260" height="14"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="HEADER CELL" id="XMy-9w-ncA">
                                                                         <font key="font" metaFont="smallSystemBold"/>
@@ -608,7 +616,7 @@
                                                             </connections>
                                                         </tableCellView>
                                                         <tableCellView identifier="DataCell" id="o6C-GZ-dgB">
-                                                            <rect key="frame" x="1" y="20" width="280" height="17"/>
+                                                            <rect key="frame" x="11" y="20" width="260" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aDq-Yf-AaW">
@@ -616,8 +624,8 @@
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" imageScaling="proportionallyDown" image="NSActionTemplate" id="9cP-cP-F7K"/>
                                                                 </imageView>
-                                                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="StZ-9D-lXb">
-                                                                    <rect key="frame" x="25" y="0.0" width="255" height="17"/>
+                                                                <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="StZ-9D-lXb">
+                                                                    <rect key="frame" x="25" y="0.0" width="235" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="0BD-yL-2jr">
                                                                         <font key="font" metaFont="system"/>
@@ -638,11 +646,11 @@
                                     </subviews>
                                     <nil key="backgroundColor"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="55A-IY-izu">
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="55A-IY-izu">
                                     <rect key="frame" x="1" y="383" width="148" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="qPM-um-nJG">
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="qPM-um-nJG">
                                     <rect key="frame" x="224" y="17" width="15" height="102"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -666,7 +674,7 @@
         <!--Parameter View Controller-->
         <scene sceneID="PjL-Ig-mga">
             <objects>
-                <viewController id="t41-8Q-ULy" customClass="ParameterViewController" customModule="sfxr_for_macos" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="t41-8Q-ULy" customClass="ParameterViewController" customModule="sfxrSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="b7P-OM-G3e">
                         <rect key="frame" x="0.0" y="0.0" width="255" height="398"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -678,7 +686,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="NSActionTemplate" width="14" height="14"/>
-        <image name="play" width="17" height="14"/>
+        <image name="NSActionTemplate" width="20" height="20"/>
+        <image name="NSTouchBarPlayTemplate" width="15" height="17"/>
     </resources>
 </document>
