@@ -113,7 +113,7 @@ class ViewController: NSSplitViewController {
     panel.canChooseDirectories = false
     panel.canChooseFiles = true
     panel.allowsMultipleSelection = false
-    panel.allowedFileTypes = ["sfxr"]
+//    panel.allowedFileTypes = ["sfxr"]
     panel.canSelectHiddenExtension = true
     panel.beginSheetModal(for: window) { (result) in
       if result == .OK {
@@ -131,7 +131,7 @@ class ViewController: NSSplitViewController {
     }
     let panel = NSSavePanel()
     panel.title = "Save"
-    panel.allowedFileTypes = ["sfxr"]
+//    panel.allowedFileTypes = ["sfxr"]
     panel.canSelectHiddenExtension = true
     panel.beginSheetModal(for: window) { (result) in
       if result == .OK{
@@ -148,10 +148,11 @@ class ViewController: NSSplitViewController {
     }
     let panel = NSSavePanel()
     panel.title = "Export .WAV"
-    panel.allowedFileTypes = ["wav"]
+//    panel.allowedFileTypes = ["wav"]
+    panel.allowedContentTypes = [.wav]
     panel.canSelectHiddenExtension = true
     panel.beginSheetModal(for: window) { (result) in
-      if result.rawValue == NSFileHandlingPanelOKButton {
+      if result == NSApplication.ModalResponse.OK {
         if let url = panel.url {
           let data = self.sfxrGenerator.exportWAV()
           try! data.write(to: url)

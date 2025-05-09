@@ -485,8 +485,9 @@ class SFXRGenerator {
     var data = Data(count: 256 * MemoryLayout<Int16>.size)
     while playingSample {
       var framesWritten = 0
-      data.withUnsafeMutableBytes {
-        framesWritten = synthSample(pointer: $0, numberOfFrames: 256, exportWave: true)
+      data.withUnsafeMutableBytes { (pointer: UnsafeMutableRawBufferPointer) in
+        framesWritten = synthSample(pointer: UnsafeMutablePointer(mutating: pointer.baseAddress!.assumingMemoryBound(to: Int16.self)),
+                                    numberOfFrames: 256, exportWave: true)
       }
       let nbytes = framesWritten * MemoryLayout<Int16>.size
       for i in 0 ..< nbytes {
