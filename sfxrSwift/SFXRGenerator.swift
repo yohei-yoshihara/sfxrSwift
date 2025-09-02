@@ -459,6 +459,53 @@ class SFXRGenerator {
     try? bdata.data.write(to: url)
   }
   
+  func generateSwiftCode() -> String {
+    let waveTypeString: String
+    switch p.waveType {
+    case .square: waveTypeString = ".square"
+    case .sawtooth: waveTypeString = ".sawtooth"
+    case .sine: waveTypeString = ".sine"
+    case .noise: waveTypeString = ".noise"
+    }
+    
+    return """
+// SFXR Sound Parameters - Copy this into your app
+let params = Parameters()
+params.waveType = \(waveTypeString)
+params.soundVol = \(p.soundVol)
+params.masterVol = \(p.masterVol)
+params.baseFreq = \(p.baseFreq)
+params.freqLimit = \(p.freqLimit)
+params.freqRamp = \(p.freqRamp)
+params.freqDramp = \(p.freqDramp)
+params.duty = \(p.duty)
+params.dutyRamp = \(p.dutyRamp)
+params.vibStrength = \(p.vibStrength)
+params.vibSpeed = \(p.vibSpeed)
+params.vibDelay = \(p.vibDelay)
+params.envAttack = \(p.envAttack)
+params.envSustain = \(p.envSustain)
+params.envDecay = \(p.envDecay)
+params.envPunch = \(p.envPunch)
+params.filterOn = \(p.filterOn)
+params.lpfResonance = \(p.lpfResonance)
+params.lpfFreq = \(p.lpfFreq)
+params.lpfRamp = \(p.lpfRamp)
+params.hpfFreq = \(p.hpfFreq)
+params.hpfRamp = \(p.hpfRamp)
+params.phaOffset = \(p.phaOffset)
+params.phaRamp = \(p.phaRamp)
+params.repeatSpeed = \(p.repeatSpeed)
+params.arpSpeed = \(p.arpSpeed)
+params.arpMod = \(p.arpMod)
+
+// Usage: 
+// let generator = SFXRGenerator()
+// generator.parameters = params
+// generator.playSample()
+"""
+  }
+  
   func exportWAV() -> Data {
     let bdata = BinaryData()
     bdata.append("RIFF")
@@ -579,6 +626,17 @@ class SFXRGenerator {
   func playSample() {
     resetSample(restart: false)
     playingSample = true
+  }
+
+  func stop() {
+    playingSample = false
+    envStage = 3
+    envTime = 0
+    fltp = 0.0
+    fltdp = 0.0
+    fltphp = 0.0
+    filesample = 0.0
+    fileacc = 0
   }
   
   func synthSample(pointer _ptr: UnsafeMutablePointer<Int16>, numberOfFrames nframes: Int, exportWave: Bool = false) -> Int {

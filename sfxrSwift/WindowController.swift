@@ -36,6 +36,25 @@ class WindowController: NSWindowController {
     
     self.window!.titleVisibility = .hidden
     
+    // Set default window size and constraints
+    if let window = self.window {
+      window.setFrameAutosaveName("MainWindow")
+      if !window.frameAutosaveName.isEmpty {
+        // If there is no saved frame yet, apply defaults
+        if !UserDefaults.standard.bool(forKey: "MainWindowHasLaunched") {
+          window.setContentSize(NSSize(width: 600, height: 700))
+          window.center()
+          UserDefaults.standard.set(true, forKey: "MainWindowHasLaunched")
+        }
+      } else {
+        window.setContentSize(NSSize(width: 600, height: 700))
+        window.center()
+      }
+      window.minSize = NSSize(width: 600, height: 700)
+      window.maxSize = NSSize(width: 600, height: 700)
+      window.styleMask.remove(.resizable)
+    }
+    
     if UserDefaults.standard.bool(forKey: UseDarkModeKey) {
       self.window?.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
     }
@@ -44,6 +63,10 @@ class WindowController: NSWindowController {
     }
     
     NotificationCenter.default.addObserver(self, selector: #selector(WindowController.themeChanged(notification:)), name: ThemeChangedNotification, object: nil)
+
+    // Play sound when wave type segmented control changes
+    self.waveTypeSegmentedControl.target = self
+    self.waveTypeSegmentedControl.action = #selector(waveTypeChanged(_:))
   }
   
   @objc func themeChanged(notification: Notification) {
@@ -59,4 +82,22 @@ class WindowController: NSWindowController {
     }
   }
   
+  @objc func waveTypeChanged(_ sender: NSSegmentedControl) {
+    guard let vc = self.window?.contentViewController as? ViewController else {
+      return
+    }
+    let idx = sender.selectedSegment
+    guard idx >= 0 && idx <= maxWaveTypeRawValue else {
+      return
+    }
+    if let wt = WaveType(rawValue: idx) {
+      vc.sfxrGenerator.stop()
+      let params = vc.sfxrGenerator.parameters
+      params.waveType = wt
+      vc.sfxrGenerator.parameters = params
+      vc.sfxrGenerator.playSample()
+      vc.updateUI()
+    }
+  }
+
 }

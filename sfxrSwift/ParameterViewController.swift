@@ -89,7 +89,9 @@ class ParameterViewController: NSViewController {
     let horizontalLine4 = createHorizontalLine()
     let horizontalLine5 = createHorizontalLine()
     let horizontalLine6 = createHorizontalLine()
-    
+    let horizontalLine7 = createHorizontalLine()
+    let horizontalLine8 = createHorizontalLine()
+
     self.envelopeAttackTimeSlider = createSlider(value: 0.0, bipolar: false, target: self)
     self.envelopeSustainTimeSlider = createSlider(value: 0.3, bipolar: false, target: self)
     self.envelopeSustainPunchSlider = createSlider(value: 0.4, bipolar: false, target: self)
@@ -131,29 +133,32 @@ class ParameterViewController: NSViewController {
       [NSTextField(labelWithString: "Min Frequency"), minimumFrequencyLimitSlider],
       [NSTextField(labelWithString: "Slide"), frequencySlideSlider],
       [NSTextField(labelWithString: "Delta Slide"), frequencyDeltaSlideSlider],
-      
+	  [horizontalLine2],
+
       [NSTextField(labelWithString: "Vibrato Depth"), vibratoDepthSlider],
       [NSTextField(labelWithString: "Vibrato Speed"), vibratoSpeedSlider],
-      [horizontalLine2],
+      [horizontalLine3],
       
       [NSTextField(labelWithString: "Change Amount"), arpeggioChangeAmountSlider],
       [NSTextField(labelWithString: "Change Speed"), arpeggioChangeSpeedSlider],
-      [horizontalLine3],
+      [horizontalLine4],
       
       [NSTextField(labelWithString: "Square Duty"), squareDutySlider],
       [NSTextField(labelWithString: "Duty Sweep"), squareDutySweepSlider],
-      [horizontalLine4],
+      [horizontalLine5],
       
       [NSTextField(labelWithString: "Repeat Speed"), repeatSpeedSlider],
-      [horizontalLine5],
+      [horizontalLine6],
       
       [NSTextField(labelWithString: "Phaser Offset"), phaserOffsetSlider],
       [NSTextField(labelWithString: "Phaser Sweep"), phaserSweepSlider],
-      [horizontalLine6],
+      [horizontalLine7],
       
       [NSTextField(labelWithString: "Low-Pass Filter Cutoff"), lowpassFilterCutoffSlider],
       [NSTextField(labelWithString: "Low-Pass Filter Cutoff Sweep"), lowpassFilterCutoffSweepSlider],
-      [NSTextField(labelWithString: "Low-Pass Filter Resonance"), lowpassFilterResonanceSlider],
+	  [NSTextField(labelWithString: "Low-Pass Filter Resonance"), lowpassFilterResonanceSlider],
+	  [horizontalLine8],
+
       [NSTextField(labelWithString: "High-Pass Filter Cutoff"), highpassFilterCutoffSlider],
       [NSTextField(labelWithString: "High-Pass Filter Cutoff Sweep"), highpassFilterCutoffSweepSlider],
       
@@ -171,7 +176,11 @@ class ParameterViewController: NSViewController {
     cell5.row!.mergeCells(in: NSRange(location: 0, length: 2))
     let cell6 = gridView.cell(for: horizontalLine6)!
     cell6.row!.mergeCells(in: NSRange(location: 0, length: 2))
-    
+    let cell7 = gridView.cell(for: horizontalLine7)!
+    cell7.row!.mergeCells(in: NSRange(location: 0, length: 2))
+    let cell8 = gridView.cell(for: horizontalLine8)!
+    cell8.row!.mergeCells(in: NSRange(location: 0, length: 2))
+
     gridView.translatesAutoresizingMaskIntoConstraints = false
     self.view.addSubview(gridView)
     
@@ -210,6 +219,7 @@ class ParameterViewController: NSViewController {
     self.lowpassFilterCutoffSlider.floatValue = params.lpfFreq
     self.lowpassFilterCutoffSweepSlider.floatValue = params.lpfRamp
     self.lowpassFilterResonanceSlider.floatValue = params.lpfResonance
+	  
     self.highpassFilterCutoffSlider.floatValue = params.hpfFreq
     self.highpassFilterCutoffSweepSlider.floatValue = params.hpfRamp
   }
