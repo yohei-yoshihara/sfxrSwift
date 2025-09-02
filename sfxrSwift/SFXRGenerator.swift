@@ -628,7 +628,7 @@ class SFXRGenerator {
       }
       // volume envelope
       envTime += 1
-      if envTime > envLength[envStage] {
+      if envStage < 3 && envTime > envLength[envStage] {
         envTime = 0
         envStage += 1
         if envStage == 3 {
@@ -689,7 +689,8 @@ class SFXRGenerator {
         case .sine: // sine
           sample = sin(fp * 2.0 * Float.pi)
         case .noise: // noise
-          sample = noiseBuffer[phase * 32 / period]
+          let noiseIndex = min(31, phase * 32 / period)
+          sample = noiseBuffer[noiseIndex]
         }
         // lp filter
         let pp = fltp
@@ -944,7 +945,7 @@ class SFXRGenerator {
       let bufferList = UnsafeMutableAudioBufferListPointer(rawBufferList)
       if bufferList.count > 0 {
         let nframes = Int(bufferList[0].mDataByteSize) / MemoryLayout<Int16>.size
-        if var ptr = bufferList[0].mData?.bindMemory(to: Int16.self, capacity: nframes) {
+        if var ptr = bufferList[0].mData?.assumingMemoryBound(to: Int16.self) {
           if self.playingSample && !self.muteStream {
             let _ = self.synthSample(pointer: ptr, numberOfFrames: nframes)
           }
