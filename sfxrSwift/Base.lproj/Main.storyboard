@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -348,8 +349,8 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
-                                        <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menuItem title="Bring All to Front" keyEquivalent="↖" id="LE2-aR-0XJ">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" option="YES" command="YES"/>
                                             <connections>
                                                 <action selector="arrangeInFront:" target="Ady-hI-5gd" id="DRN-fu-gQh"/>
                                             </connections>
@@ -446,10 +447,8 @@
                                 <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="vTE-xg-vdA"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="0ng-2N-8Vo"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Qwa-Fh-bC4"/>
-                                <toolbarItem implicitItemIdentifier="204C7D7B-DF24-4195-8B8B-273F1BAAFCA3" label="Custom View" paletteLabel="Custom View" id="XCu-Mw-KY7">
+                                <toolbarItem implicitItemIdentifier="204C7D7B-DF24-4195-8B8B-273F1BAAFCA3" label="Custom View" paletteLabel="Custom View" sizingBehavior="auto" id="XCu-Mw-KY7">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="100" height="25"/>
-                                    <size key="maxSize" width="329" height="28"/>
                                     <segmentedControl key="view" verticalHuggingPriority="750" id="uxx-Vy-pOT">
                                         <rect key="frame" x="0.0" y="14" width="325" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -464,10 +463,8 @@
                                         </segmentedCell>
                                     </segmentedControl>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="550A59C5-36C8-434F-AAE4-D061EADE0982" label="Custom View" paletteLabel="Custom View" image="NSTouchBarPlayTemplate" id="Fhf-tE-JEQ">
+                                <toolbarItem implicitItemIdentifier="550A59C5-36C8-434F-AAE4-D061EADE0982" label="Custom View" paletteLabel="Custom View" image="NSTouchBarPlayTemplate" sizingBehavior="auto" id="Fhf-tE-JEQ">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="40" height="25"/>
-                                    <size key="maxSize" width="40" height="25"/>
                                     <button key="view" verticalHuggingPriority="750" id="gTS-4h-2wa">
                                         <rect key="frame" x="18" y="14" width="40" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -601,7 +598,7 @@
                                                             <rect key="frame" x="11" y="1" width="260" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K1Z-IL-sN2">
+                                                                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K1Z-IL-sN2">
                                                                     <rect key="frame" x="0.0" y="1" width="260" height="14"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="HEADER CELL" id="XMy-9w-ncA">
@@ -624,7 +621,7 @@
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" imageScaling="proportionallyDown" image="NSActionTemplate" id="9cP-cP-F7K"/>
                                                                 </imageView>
-                                                                <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="StZ-9D-lXb">
+                                                                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="StZ-9D-lXb">
                                                                     <rect key="frame" x="25" y="0.0" width="235" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="0BD-yL-2jr">
