@@ -129,7 +129,7 @@ class ViewController: NSSplitViewController {
     self.sfxrGenerator.playSample()
   }
   
-  func openDocument(_ sender: Any) {
+  @IBAction func openDocument(_ sender: Any) {
     guard let window = self.view.window else {
       return
     }
@@ -150,7 +150,7 @@ class ViewController: NSSplitViewController {
     }
   }
   
-  func saveDocument(_ sender: Any) {
+  @IBAction func saveDocument(_ sender: Any) {
     guard let window = self.view.window else {
       return
     }
@@ -165,6 +165,37 @@ class ViewController: NSSplitViewController {
         }
       }
     }
+  }
+  
+  @IBAction func saveSwiftCode(_ sender: Any) {
+    guard let window = self.view.window else {
+      return
+    }
+    let panel = NSSavePanel()
+    panel.title = "Save Swift Code"
+    // panel.allowedFileTypes = ["swift"]
+    panel.canSelectHiddenExtension = true
+    panel.beginSheetModal(for: window) { (result) in
+      if result == .OK{
+        if let url = panel.url {
+          let code = self.sfxrGenerator.generateSwiftCode()
+          do {
+            try code.write(to: url, atomically: true, encoding: .utf8)
+          } catch {
+            self.showErrorAlert(error)
+          }
+        }
+      }
+    }
+  }
+  
+  func showErrorAlert(_ error: Error) {
+    let alert = NSAlert()
+    alert.messageText = "Failed to save Swift Code."
+    alert.informativeText = error.localizedDescription
+    alert.alertStyle = .warning
+    alert.addButton(withTitle: "OK")
+    alert.runModal()
   }
   
   @IBAction func export(_ sender: Any) {

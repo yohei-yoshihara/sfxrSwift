@@ -140,9 +140,20 @@ class Parameters : CustomStringConvertible {
 }
 
 class SFXRGenerator {
+  // AUAudioUnit calls outputProvider in its own thread.
+  // Therefore, a race condition occurs when a method that
+  // changes data is executed from the main thread.
+  // This semaphore is used to avoid the situation.
+  // The reason we do not use Swift's actor/async/await is
+  // because there is a possibility that the process will be
+  // executed in a completely different thread if we use await,
+  // and it is unclear whether AUAudioUnit will cause problems
+  // in this case. So we will implement it in the old style.
+  private let semaphore = DispatchSemaphore(value: 1)
+  
   private var p = Parameters()
   
-  var parameters: Parameters {
+  public var parameters: Parameters {
     get {
       return self.p
     }
@@ -151,54 +162,54 @@ class SFXRGenerator {
     }
   }
   
-  var playingSample = false
+  private var playingSample = false
   
-  var phase: Int = 0
-  var fperiod: Double = 0.0
-  var fmaxperiod: Double = 0.0
-  var fslide: Double = 0.0
-  var fdslide: Double = 0.0
-  var period: Int = 0
-  var squareDuty: Float = 0.0
-  var squareSlide: Float = 0.0
-  var envStage: Int = 0
-  var envTime: Int = 0
-  var envLength: [Int] = [0, 0, 0]
-  var envVol: Float = 0.0
-  var fphase: Float = 0.0
-  var fdphase: Float = 0.0
-  var iphase: Int = 0
-  var phaserBuffer = [Float](repeating: 0.0, count: 1024)
-  var ipp: Int = 0
-  var noiseBuffer = [Float](repeating: 0.0, count: 32)
-  var fltp: Float = 0.0
-  var fltdp: Float = 0.0
-  var fltw: Float = 0.0
-  var fltwD: Float = 0.0
-  var fltdmp: Float = 0.0
-  var fltphp: Float = 0.0
-  var flthp: Float = 0.0
-  var flthpD: Float = 0.0
-  var vibPhase: Float = 0.0
-  var vibSpeed: Float = 0.0
-  var vibAmp: Float = 0.0
-  var repTime: Int = 0
-  var repLimit: Int = 0
-  var arpTime: Int = 0
-  var arpLimit: Int = 0
-  var arpMod: Double = 0.0
+  private var phase: Int = 0
+  private var fperiod: Double = 0.0
+  private var fmaxperiod: Double = 0.0
+  private var fslide: Double = 0.0
+  private var fdslide: Double = 0.0
+  private var period: Int = 0
+  private var squareDuty: Float = 0.0
+  private var squareSlide: Float = 0.0
+  private var envStage: Int = 0
+  private var envTime: Int = 0
+  private var envLength: [Int] = [0, 0, 0]
+  private var envVol: Float = 0.0
+  private var fphase: Float = 0.0
+  private var fdphase: Float = 0.0
+  private var iphase: Int = 0
+  private var phaserBuffer = [Float](repeating: 0.0, count: 1024)
+  private var ipp: Int = 0
+  private var noiseBuffer = [Float](repeating: 0.0, count: 32)
+  private var fltp: Float = 0.0
+  private var fltdp: Float = 0.0
+  private var fltw: Float = 0.0
+  private var fltwD: Float = 0.0
+  private var fltdmp: Float = 0.0
+  private var fltphp: Float = 0.0
+  private var flthp: Float = 0.0
+  private var flthpD: Float = 0.0
+  private var vibPhase: Float = 0.0
+  private var vibSpeed: Float = 0.0
+  private var vibAmp: Float = 0.0
+  private var repTime: Int = 0
+  private var repLimit: Int = 0
+  private var arpTime: Int = 0
+  private var arpLimit: Int = 0
+  private var arpMod: Double = 0.0
   
-  var wavBits: Int = 16
-  var wavFreq: Int = 44100
+  private var wavBits: Int = 16
+  private var wavFreq: Int = 44100
   
-  var filesample: Float = 0.0
-  var fileacc: Int = 0
+  private var filesample: Float = 0.0
+  private var fileacc: Int = 0
   
-  var muteStream: Bool = false
+  private var muteStream: Bool = false
   
-  var ioUnit: AUAudioUnit?
+  private var ioUnit: AUAudioUnit?
   
-  func random() {
+  public func random() {
     p.baseFreq = pow(frnd(2.0) - 1.0, 2.0)
     if brnd() {
       p.baseFreq = pow(frnd(2.0) - 1.0, 3.0) + 0.5
@@ -240,7 +251,7 @@ class SFXRGenerator {
     p.arpMod = frnd(2.0) - 1.0
   }
   
-  func mutate() {
+  public func mutate() {
     if brnd() {
       p.baseFreq += frnd(0.1) - 0.05
     }
@@ -310,7 +321,7 @@ class SFXRGenerator {
     }
   }
   
-  func loadSettings(url: URL) {
+  public func loadSettings(url: URL) {
     guard let data = try? Data(contentsOf: url) else {
       return
     }
@@ -417,7 +428,7 @@ class SFXRGenerator {
     Swift.print("\(p)")
   }
   
-  func saveSettings(url: URL) {
+  public func saveSettings(url: URL) {
     let bdata = BinaryData()
     let version: UInt32 = 102
     bdata.append(version)
@@ -459,7 +470,7 @@ class SFXRGenerator {
     try? bdata.data.write(to: url)
   }
   
-  func generateSwiftCode() -> String {
+  public func generateSwiftCode() -> String {
     let waveTypeString: String
     switch p.waveType {
     case .square: waveTypeString = ".square"
@@ -506,7 +517,7 @@ params.arpMod = \(p.arpMod)
 """
   }
   
-  func exportWAV() -> Data {
+  public func exportWAV() -> Data {
     let bdata = BinaryData()
     bdata.append("RIFF")
     bdata.append(UInt32(0)) // remaining file size
@@ -550,7 +561,7 @@ params.arpMod = \(p.arpMod)
     return bdata.data
   }
   
-  func resetSample(restart: Bool) {
+  public func resetSample(restart: Bool) {
     if !restart {
       phase = 0
     }
@@ -623,12 +634,18 @@ params.arpMod = \(p.arpMod)
     }
   }
   
-  func playSample() {
+  public func playSample() {
+    defer { semaphore.signal() }
+    semaphore.wait()
+    
     resetSample(restart: false)
     playingSample = true
   }
 
-  func stop() {
+  public func stop() {
+    defer { semaphore.signal() }
+    semaphore.wait()
+    
     playingSample = false
     envStage = 3
     envTime = 0
@@ -639,7 +656,7 @@ params.arpMod = \(p.arpMod)
     fileacc = 0
   }
   
-  func synthSample(pointer _ptr: UnsafeMutablePointer<Int16>, numberOfFrames nframes: Int, exportWave: Bool = false) -> Int {
+  private func synthSample(pointer _ptr: UnsafeMutablePointer<Int16>, numberOfFrames nframes: Int, exportWave: Bool = false) -> Int {
     var ptr = _ptr
     
     var framesWritten = 0
@@ -823,8 +840,7 @@ params.arpMod = \(p.arpMod)
     return framesWritten
   }
   
-  func play(generator: GeneratorType) {
-    Swift.print("play \(generator)")
+  public func play(generator: GeneratorType) {
     switch generator {
     case .pickupCoin:
       p.reset()
@@ -977,7 +993,7 @@ params.arpMod = \(p.arpMod)
     playSample()
   }
   
-  func prepare() {
+  public func prepare() {
     let ioUnitDesc = AudioComponentDescription(componentType: kAudioUnitType_Output,
                                                componentSubType: kAudioUnitSubType_HALOutput,
                                                componentManufacturer: kAudioUnitManufacturer_Apple,
@@ -994,12 +1010,16 @@ params.arpMod = \(p.arpMod)
     }
     try! ioUnit.inputBusses[0].setFormat(renderFormat)
     
+    // Note that the following functions run in a thread created by AUAudioUnit.
     ioUnit.outputProvider = { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
       timestamp: UnsafePointer<AudioTimeStamp>,
       frameCount: AUAudioFrameCount,
       busIndex: Int,
       rawBufferList: UnsafeMutablePointer<AudioBufferList>) -> AUAudioUnitStatus in
-      
+
+      defer { self.semaphore.signal() }
+      self.semaphore.wait()
+
       let bufferList = UnsafeMutableAudioBufferListPointer(rawBufferList)
       if bufferList.count > 0 {
         let nframes = Int(bufferList[0].mDataByteSize) / MemoryLayout<Int16>.size

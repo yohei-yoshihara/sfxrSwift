@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24412"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -72,6 +72,12 @@
                                         <menuItem title="Save…" keyEquivalent="s" id="pxx-59-PXV">
                                             <connections>
                                                 <action selector="saveDocument:" target="Ady-hI-5gd" id="teZ-XB-qJY"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Save Swift Code…" image="square.and.arrow.up" catalog="system" keyEquivalent="S" id="5hH-az-s2h">
+                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="saveSwiftCode:" target="Ady-hI-5gd" id="fKz-UN-HIk"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Export .WAV..." keyEquivalent="e" id="6Gr-oy-9ec">
@@ -440,7 +446,7 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="680" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <toolbar key="toolbar" implicitIdentifier="C829CCFB-4C3D-4B54-A1B2-14874053969E" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="Sxh-d6-8KL">
+                        <toolbar key="toolbar" implicitIdentifier="C829CCFB-4C3D-4B54-A1B2-14874053969E" autosavesConfiguration="NO" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="Sxh-d6-8KL">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="pt6-72-vna"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="sUK-h7-JKd"/>
@@ -450,8 +456,8 @@
                                 <toolbarItem implicitItemIdentifier="204C7D7B-DF24-4195-8B8B-273F1BAAFCA3" label="Custom View" paletteLabel="Custom View" sizingBehavior="auto" id="XCu-Mw-KY7">
                                     <nil key="toolTip"/>
                                     <segmentedControl key="view" verticalHuggingPriority="750" id="uxx-Vy-pOT">
-                                        <rect key="frame" x="0.0" y="14" width="325" height="28"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <rect key="frame" x="0.0" y="14" width="323" height="24"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectOne" id="OQm-2O-OAC">
                                             <font key="font" metaFont="system"/>
                                             <segments>
@@ -466,8 +472,8 @@
                                 <toolbarItem implicitItemIdentifier="550A59C5-36C8-434F-AAE4-D061EADE0982" label="Custom View" paletteLabel="Custom View" image="NSTouchBarPlayTemplate" sizingBehavior="auto" id="Fhf-tE-JEQ">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="gTS-4h-2wa">
-                                        <rect key="frame" x="18" y="14" width="40" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <rect key="frame" x="26" y="14" width="24" height="23"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarPlayTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="v9I-jA-cvx">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -486,7 +492,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <popUpButtonCell key="cell" type="roundTextured" title="44100 Hz" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="WGa-3f-ELO" id="JfO-aU-KPE">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu"/>
+                                            <font key="font" metaFont="message"/>
                                             <menu key="menu" id="c40-RC-7e3">
                                                 <items>
                                                     <menuItem title="44100 Hz" state="on" id="WGa-3f-ELO"/>
@@ -505,7 +511,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <popUpButtonCell key="cell" type="roundTextured" title="16-bit" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="mLa-68-EFU" id="aNG-jE-nQ9">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu"/>
+                                            <font key="font" metaFont="message"/>
                                             <menu key="menu" id="qyU-hj-1We">
                                                 <items>
                                                     <menuItem title="16-bit" state="on" id="mLa-68-EFU"/>
@@ -685,5 +691,6 @@
     <resources>
         <image name="NSActionTemplate" width="20" height="20"/>
         <image name="NSTouchBarPlayTemplate" width="15" height="17"/>
+        <image name="square.and.arrow.up" catalog="system" width="15" height="18"/>
     </resources>
 </document>
