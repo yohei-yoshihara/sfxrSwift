@@ -34,6 +34,7 @@ let ParameterChangedNotification = Notification.Name(rawValue: "ParameterChanged
 class ViewController: NSSplitViewController {
   let sfxrGenerator = SFXRGenerator()
   var parameterViewController: ParameterViewController!
+  var keyDownMonitor: Any?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -62,6 +63,23 @@ class ViewController: NSSplitViewController {
       }
     }
     precondition(self.parameterViewController != nil)
+
+    // Monitor spacebar to trigger play
+    keyDownMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
+      guard let self = self else { return event }
+      if let chars = event.charactersIgnoringModifiers, chars == " " {
+        self.play(self)
+        return nil
+      }
+      return event
+    }
+
+    // Set sidebar width constraints
+    if self.splitViewItems.count > 0 {
+      let sidebarItem = self.splitViewItems[0]
+      sidebarItem.minimumThickness = 150
+      sidebarItem.maximumThickness = 150
+    }
   }
   
   override func viewWillAppear() {
@@ -70,23 +88,29 @@ class ViewController: NSSplitViewController {
   
   deinit {
     NotificationCenter.default.removeObserver(self)
+    if let mon = keyDownMonitor {
+      NSEvent.removeMonitor(mon)
+    }
   }
   
   @objc func generatorSelected(notification: Notification) {
     guard let generator = notification.userInfo?["generator"] as? GeneratorType else {
       return
     }
+    self.sfxrGenerator.stop()
     self.sfxrGenerator.play(generator: generator)
     updateUI()
   }
   
   @objc func mutate(notification: Notification) {
+    self.sfxrGenerator.stop()
     self.sfxrGenerator.mutate()
     self.sfxrGenerator.playSample()
     updateUI()
   }
   
   @objc func randomize(notification: Notification) {
+    self.sfxrGenerator.stop()
     self.sfxrGenerator.random()
     self.sfxrGenerator.playSample()
     updateUI()
@@ -100,6 +124,7 @@ class ViewController: NSSplitViewController {
   }
   
   @objc func parameterChanged(notification: Notification) {
+    self.sfxrGenerator.stop()
     self.parameterViewController.updateParameters(parameters: &self.sfxrGenerator.parameters)
     self.sfxrGenerator.playSample()
   }
@@ -161,8 +186,21 @@ class ViewController: NSSplitViewController {
     }
   }
   
-  func play(_ sender: Any) {
+  @IBAction func play(_ sender: Any) {
+    self.sfxrGenerator.stop()
     self.sfxrGenerator.playSample()
+  }
+  
+  @IBAction func copyCode(_ sender: Any) {
+    let swiftCode = self.sfxrGenerator.generateSwiftCode()
+    let pasteboard = NSPasteboard.general
+    pasteboard.clearContents()
+    pasteboard.setString(swiftCode, forType: .string)
+	  self.play(self)
+  }
+  
+  @IBAction func copy(_ sender: Any) {
+    copyCode(sender)
   }
 }
 
