@@ -536,7 +536,7 @@ params.arpMod = \(p.arpMod)
     bdata.append(UInt32(0)) // chunk size
     
     muteStream = true
-    var fileSampleswritten = 0
+    var fileSampleswritten = 0 // bytes
     filesample = 0.0
     fileacc = 0
     playSample()
@@ -547,7 +547,7 @@ params.arpMod = \(p.arpMod)
         framesWritten = synthSample(pointer: UnsafeMutablePointer(mutating: pointer.baseAddress!.assumingMemoryBound(to: Int16.self)),
                                     numberOfFrames: 256, exportWave: true)
       }
-      let nbytes = framesWritten * MemoryLayout<Int16>.size
+      let nbytes = framesWritten * (wavBits / 8)
       for i in 0 ..< nbytes {
         bdata.append(data[i])
       }
@@ -555,8 +555,12 @@ params.arpMod = \(p.arpMod)
     }
     muteStream = false
     
-    bdata.setUInt32(UInt32(bdata.data.count - 8), at: 4)
-    bdata.setUInt32(UInt32(fileSampleswritten * wavBits / 8), at: 40)
+    let totalLength = bdata.data.count - 8 // exclude "RIFF" (4bytes) and size (4bytes)
+    let dataLength = fileSampleswritten
+    assert(totalLength - dataLength == 36)
+    
+    bdata.setUInt32(UInt32(totalLength), at: 4)
+    bdata.setUInt32(UInt32(dataLength), at: 40)
     
     return bdata.data
   }
